@@ -18,24 +18,44 @@
   <script type="text/javascript" src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="StoreCtrl as store">
-  <div class="container items" ng-repeat="product in store.products">
-    <div class="row">
-      <div class="col-md-4 inner">
-        <div ng-hide="product.soldOut">
-          <div class="thumbnail">
-            <div class="panel panel-default">
-              <div class="panel-body titles">
-                <h1 class="text-center">Gems For Sale</h1>
-              </div>
-            </div>
-            <div class="product-info">
-              <h3><strong>{{product.type}}</strong></h3>
-              <img src="..." alt="..." />
-              <div class="caption">
-                <button class="btn btn-primary btn-sm pull-right purchase" ng-show="product.canPurchase">Add To Cart</button>
-                <p><em class="pull-right inner"><strong>{{product.price | currency}}</strong></em></p>
-                <h1>{{product.name}}</h1>
-                <p>{{product.description}}</p>
+  <div class="container">
+    <div class="panel">
+      <div class="panel-heading"><h1 class="text-center">Gems For Sale</h1></div>
+      <div class="panel-body">
+        <div class="row">
+          <div ng-repeat="product in store.products">
+            <div class="col-lg-6">
+              <div ng-hide="product.soldOut">
+                <div class="thumbnail">
+                  <ul class="nav nav-tabs">
+                    <li><a href ng-click="tab=1">Description</a></li>
+                    <li><a href ng-click="tab=2">Specifications</a></li>
+                    <li><a href ng-click="tab=3">Reviews</a></li>
+                  </ul>
+                  <div class="product-info">
+                    <h3><strong>{{product.type}}</strong></h3>
+                    <img ng-src="{{product.images[0].full}}" />
+                    <div class="caption">
+                      <button class="btn btn-primary btn-sm pull-right purchase" ng-show="product.canPurchase">Add To Cart</button>
+                      <h2>{{product.name}}</h2>
+                      <div class="prices">
+                        <p><em class="text-center amount inner"><strong>{{product.price | currency}}</strong></em></p>
+                      </div>
+                    </div>
+                    <div class="panel" ng-show="tab === 1">
+                      <h4>Descriprion</h4>
+                      {{product.description}}
+                    </div>
+                    <div class="panel" ng-show="tab === 2">
+                      <h4>Specifications</h4>
+                      <p><blockquote>None yet</blockquote></p>
+                    </div>
+                    <div class="panel" ng-show="tab === 3">
+                      <h4>Reviews</h4>
+                      <p><blockquote>None yet</blockquote></p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -45,7 +65,7 @@
   </div>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
   <script type="text/javascript" src="assets/js/vendor/angular.min.js"></script>
   <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
