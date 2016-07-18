@@ -18,21 +18,29 @@
   <script type="text/javascript" src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="StoreCtrl as store">
-  <div class="container">
+  <section class="container">
     <div class="panel">
       <div class="panel-heading"><h1 class="text-center">Gems For Sale</h1></div>
       <div class="panel-body">
         <div class="row">
-          <div ng-repeat="product in store.products">
-            <div class="col-lg-6">
+          <section ng-repeat="product in store.products">
+            <div class="col-md-8">
               <div ng-hide="product.soldOut">
-                <div class="thumbnail">
-                  <ul class="nav nav-tabs">
-                    <li><a href ng-click="tab=1">Description</a></li>
-                    <li><a href ng-click="tab=2">Specifications</a></li>
-                    <li><a href ng-click="tab=3">Reviews</a></li>
-                  </ul>
-                  <div class="product-info">
+                <div class="thumbnail" ng-controller="PanelCtrl as panel">
+                  <section>
+                    <ul class="nav nav-pills">
+                      <li ng-class="{active:panel.isSelected(1)}">
+                        <a href ng-click="panel.selectTab(1)">Description</a>
+                      </li>
+                      <li ng-class="{active:panel.isSelected(2)}">
+                        <a href ng-click="panel.selectTab(2)">Specifications</a>
+                      </li>
+                      <li ng-class="{active:panel.isSelected(3)}">
+                        <a href ng-click="panel.selectTab(3)">Reviews</a>
+                      </li>
+                    </ul>
+                  </section>
+                  <section class="product-info">
                     <h3><strong>{{product.type}}</strong></h3>
                     <img ng-src="{{product.images[0].full}}" />
                     <div class="caption">
@@ -42,30 +50,35 @@
                         <p><em class="text-center amount inner"><strong>{{product.price | currency}}</strong></em></p>
                       </div>
                     </div>
-                    <div class="panel" ng-show="tab === 1">
+                    <div class="panel cards" ng-show="panel.isSelected(1)">
                       <h4>Descriprion</h4>
                       {{product.description}}
                     </div>
-                    <div class="panel" ng-show="tab === 2">
+                    <div class="panel cards" ng-show="panel.isSelected(2)">
                       <h4>Specifications</h4>
                       <p><blockquote>None yet</blockquote></p>
                     </div>
-                    <div class="panel" ng-show="tab === 3">
+                    <div class="panel cards" ng-show="panel.isSelected(3)">
                       <h4>Reviews</h4>
-                      <p><blockquote>None yet</blockquote></p>
+                      <div ng-repeat="review in product.reviews">
+                        <b>Stars: {{review.rating}}</b>
+                        {{review.text}}
+                        <cite>by:{{review.user}}</cite>
+                      </div>
                     </div>
-                  </div>
+                  </section>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <!--script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.0.min.js"><\/script>')</script-->
+  <script type="text/javascript" src="assets/js/vendor/jquery-2.2.0.min.js"></script>
   <script type="text/javascript" src="assets/js/vendor/angular.min.js"></script>
   <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
